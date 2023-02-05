@@ -16,7 +16,7 @@ public class User {
     @Column(length = 64, nullable = false)
     private String password;
     @Column(name = "first_name",length = 45, nullable = false)
-    private String firstname;
+    private String firstName;
     @Column(name = "last_name", length = 45, nullable = false)
     private String lastName;
     @Column(length = 64)
@@ -34,10 +34,10 @@ public class User {
     public User() {
     }
 
-    public User(String email, String password, String firstname, String lastName) {
+    public User(String email, String password, String firstName, String lastName) {
         this.email = email;
         this.password = password;
-        this.firstname = firstname;
+        this.firstName = firstName;
         this.lastName = lastName;
     }
 
@@ -65,12 +65,12 @@ public class User {
         this.password = password;
     }
 
-    public String getFirstname() {
-        return firstname;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
     public String getLastName() {
@@ -114,9 +114,15 @@ public class User {
         return "User{" +
                 "id=" + id +
                 ", email='" + email + '\'' +
-                ", firstname='" + firstname + '\'' +
+                ", firstname='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", roles=" + roles +
                 '}';
+    }
+
+    @Transient
+    public String getPhotosImagePath(){
+        if (id == null || photos == null) return "/images/default-user.png";
+        return "/user-photos/" + this.id + "/" + this.photos;
     }
 }
