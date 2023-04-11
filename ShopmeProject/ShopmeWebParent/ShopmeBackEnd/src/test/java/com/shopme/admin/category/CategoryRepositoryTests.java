@@ -8,6 +8,7 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.annotation.Rollback;
 
+import java.util.List;
 import java.util.Set;
 
 @DataJpaTest(showSql = false)
@@ -28,16 +29,18 @@ public class CategoryRepositoryTests {
 
     @Test
     public void testCreateSubCategory(){
-        Category parent = new Category(7);
+        Category parent = new Category(8);
         Category subCategory = new Category("iPhone",parent);
 
         Category savedCategory = repo.save(subCategory);
+
         Assertions.assertThat(savedCategory.getId()).isGreaterThan(0);
+
     }
 
     @Test
     public void testGetCategory(){
-        Category category = repo.findById(2).get();
+        Category category = repo.findById(1).get();
         System.out.println(category.getName());
 
         Set<Category> children = category.getChildren();
@@ -81,5 +84,11 @@ public class CategoryRepositoryTests {
             printChildren(subCategory, newSubLevel);
         }
 
+    }
+
+    @Test
+    public void testListRootCategories(){
+       List<Category> listRootCategories = repo.findRootCategories();
+       listRootCategories.forEach(cat -> System.out.println(cat.getName()));
     }
 }
