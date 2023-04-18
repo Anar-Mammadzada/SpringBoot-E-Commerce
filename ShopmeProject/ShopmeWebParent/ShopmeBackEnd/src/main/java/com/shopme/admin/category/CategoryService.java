@@ -1,18 +1,21 @@
 package com.shopme.admin.category;
 
 import com.shopme.common.entity.Category;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Set;
 
 @Service
-@RequiredArgsConstructor
 public class CategoryService {
 
-    private final CategoryRepository repo;
+    private CategoryRepository repo;
+
+    public CategoryService(CategoryRepository repo) {
+        this.repo = repo;
+    }
 
     public List<Category> listAll(){
         List<Category> rootCategories = repo.findRootCategories();
@@ -72,7 +75,6 @@ public class CategoryService {
 
     }
 
-
     public Category save(Category category){
         return repo.save(category);
     }
@@ -96,6 +98,43 @@ public class CategoryService {
         }
         return categoriesUsedInForm;
 
+    }
+
+    public Category get(int id) throws CategoryNotFoundException {
+        try {
+            return repo.findById(id).get();
+        }catch (NoSuchElementException ex){
+            throw new CategoryNotFoundException("Could not find any category with ID " + id);
+        }
+    }
+
+    public String checkUnique(Integer id, String name, String alias) {
+        boolean isCreatingNew = (id == null || id == 0);
+
+        Category categoryByName = repo.findByName(name);
+
+        if (isCreatingNew) {
+            if (categoryByName != null) {
+                return "DuplicateName";
+            } else {
+                Category categoryByAlias = repo.findByAlias(alias);
+                if (categoryByAlias != null) {
+                    return "DuplicateAlias";
+                }
+            }
+        } else {
+            if (categoryByName != null && categoryByName.getId() != id) {
+                return "DuplicateName";
+            }
+
+            Category categoryByAlias = repo.findByAlias(alias);
+            if (categoryByAlias != null && categoryByAlias.getId() != id) {
+                return "DuplicateAlias";
+            }
+
+        }
+
+        return "OK";
     }
 
 }

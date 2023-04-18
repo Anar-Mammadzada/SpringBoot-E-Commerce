@@ -18,10 +18,13 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.io.IOException;
 
 @Controller
-@RequiredArgsConstructor
 public class AccountController {
 
-    private final UserService service;
+    private UserService service;
+
+    public AccountController(UserService service) {
+        this.service = service;
+    }
 
     @GetMapping("/account")
     public String viewDetails(@AuthenticationPrincipal ShopmeUserDetails loggedUser, Model model){

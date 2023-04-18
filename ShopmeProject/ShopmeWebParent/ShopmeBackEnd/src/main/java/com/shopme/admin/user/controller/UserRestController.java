@@ -7,10 +7,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequiredArgsConstructor
 public class UserRestController {
 
-    private final UserService userService;
+    private UserService userService;
+
+    public UserRestController(UserService userService) {
+        this.userService = userService;
+    }
 
     @PostMapping("/users/check_email")
     public String checkDuplicateEmail(@Param("id") Integer id, @Param("email") String email){

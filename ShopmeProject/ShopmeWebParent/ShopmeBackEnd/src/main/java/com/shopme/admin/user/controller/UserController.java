@@ -26,10 +26,13 @@ import java.io.IOException;
 import java.util.List;
 
 @Controller
-@RequiredArgsConstructor
 public class UserController {
 
-    private final UserService service;
+    private UserService service;
+
+    public UserController(UserService service) {
+        this.service = service;
+    }
 
     @GetMapping("/users")
     public String listFirstPage(Model model) {

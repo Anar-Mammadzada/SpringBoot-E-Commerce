@@ -9,7 +9,11 @@ import java.util.List;
 public interface CategoryRepository extends PagingAndSortingRepository<Category, Integer> {
 
     @Query("select c from Category c where c.parent.id is null ")
-    public List<Category> findRootCategories();
+     List<Category> findRootCategories();
+
+     Category findByName(String name);
+
+     Category findByAlias(String alias);
 
 
 }

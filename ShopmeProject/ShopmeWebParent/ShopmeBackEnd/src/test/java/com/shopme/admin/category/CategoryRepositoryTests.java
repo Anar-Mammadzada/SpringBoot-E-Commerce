@@ -91,4 +91,22 @@ public class CategoryRepositoryTests {
        List<Category> listRootCategories = repo.findRootCategories();
        listRootCategories.forEach(cat -> System.out.println(cat.getName()));
     }
+
+    @Test
+    public void testFindByName(){
+        String name ="Computers";
+        Category category = repo.findByName(name);
+
+        Assertions.assertThat(category).isNotNull();
+        Assertions.assertThat(category.getName()).isEqualTo(name);
+    }
+
+    @Test
+    public void testFindByAlias(){
+        String alias ="Electronics";
+        Category category = repo.findByAlias(alias);
+
+        Assertions.assertThat(category).isNotNull();
+        Assertions.assertThat(category.getAlias()).isEqualTo(alias);
+    }
 }

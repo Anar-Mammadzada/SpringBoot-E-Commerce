@@ -3,6 +3,7 @@ package com.shopme.admin.user;
 import com.shopme.common.entity.Role;
 import com.shopme.common.entity.User;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -15,17 +16,23 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 @Service
-@RequiredArgsConstructor
 @Transactional
 public class UserService {
 
     public static final int USERS_PER_PAGE = 4;
 
-    private final UserRepository userRepo;
 
-    private  final RoleRepository roleRepo;
+    private UserRepository userRepo;
 
-    private final PasswordEncoder passwordEncoder;
+    private RoleRepository roleRepo;
+
+    private PasswordEncoder passwordEncoder;
+
+    public UserService(UserRepository userRepo, RoleRepository roleRepo, PasswordEncoder passwordEncoder) {
+        this.userRepo = userRepo;
+        this.roleRepo = roleRepo;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     public User getByEmail(String email){
         return userRepo.getUserByEmail(email);
