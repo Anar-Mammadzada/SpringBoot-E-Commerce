@@ -3,10 +3,12 @@ package com.shopme.admin.category;
 import com.shopme.common.entity.Category;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
 @Service
+@Transactional
 public class CategoryService {
 
     private CategoryRepository repo;
@@ -162,6 +164,18 @@ public class CategoryService {
         sortedChildren.addAll(children);
 
         return sortedChildren;
+    }
+
+    public void updateCategoryEnabledStatus(Integer id, boolean enabled){
+        repo.updateEnabledStatus(id, enabled);
+    }
+
+    public void delete(Integer id) throws CategoryNotFoundException {
+       Long countById =  repo.countById(id);
+       if (countById == null || countById == 0){
+           throw new CategoryNotFoundException("Could not find any category with ID " + id);
+       }
+       repo.deleteById(id);
     }
 
 }
