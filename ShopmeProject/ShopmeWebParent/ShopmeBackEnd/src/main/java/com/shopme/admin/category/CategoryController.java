@@ -1,11 +1,7 @@
 package com.shopme.admin.category;
 
 import com.shopme.admin.FileUploadUtil;
-import com.shopme.admin.user.UserNotFoundException;
 import com.shopme.common.entity.Category;
-import com.shopme.common.entity.Role;
-import com.shopme.common.entity.User;
-import lombok.RequiredArgsConstructor;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,19 +19,32 @@ import java.util.List;
 @Controller
 public class CategoryController {
 
-    private CategoryService service;
+    private final CategoryService service;
 
     public CategoryController(CategoryService service) {
         this.service = service;
     }
 
     @GetMapping("/categories")
-    public String listAll(@Param("sortDir") String sortDir,  Model model){
+    public String listFirstPage(@Param("sortDir") String sortDir,  Model model){
+        return listByPage(1, sortDir, model);
+    }
+
+    @GetMapping("/categories/page/{pageNum}")
+    public String listByPage(@PathVariable(name = "pageNum") Integer pageNum, @Param("sortDir") String sortDir,  Model model){
         if (sortDir == null || sortDir.isEmpty()){
             sortDir = "asc";
         }
-        List<Category> listCategories = service.listAll(sortDir);
+
+        CategoryPageInfo pageInfo = new CategoryPageInfo();
+        List<Category> listCategories = service.listByPage(pageInfo, pageNum, sortDir);
         String reverseSortDir = sortDir.equals("asc") ? "desc" : "asc";
+        model.addAttribute("totalPages", pageInfo.getTotalPages());
+        model.addAttribute("totalItems", pageInfo.getTotalElements());
+        model.addAttribute("currentPage", pageNum);
+        model.addAttribute("sortField", "name");
+        model.addAttribute("sortField", sortDir);
+
         model.addAttribute("listCategories", listCategories);
         model.addAttribute("reverseSortDir", reverseSortDir);
         return "categories/categories";

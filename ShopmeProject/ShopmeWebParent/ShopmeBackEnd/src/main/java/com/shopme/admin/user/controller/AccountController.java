@@ -20,7 +20,7 @@ import java.io.IOException;
 @Controller
 public class AccountController {
 
-    private UserService service;
+    private final UserService service;
 
     public AccountController(UserService service) {
         this.service = service;
