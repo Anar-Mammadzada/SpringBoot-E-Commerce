@@ -145,6 +145,12 @@ public class Category {
         this.children = children;
     }
 
+
+    @Override
+    public String toString() {
+        return this.name;
+    }
+
     @Transient
     public String getImagePath(){
         if(this.id == null) return "/images/image-thumbnail.png";
