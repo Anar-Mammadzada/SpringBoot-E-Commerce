@@ -19,7 +19,7 @@ public interface CategoryRepository extends PagingAndSortingRepository<Category,
     Page<Category> findRootCategories(Pageable pageable);
 
     @Query("select c from Category c where c.name like %?1%")
-    public Page<Category> search(String keyword, Pageable pageable);
+     Page<Category> search(String keyword, Pageable pageable);
      Long countById(Integer id);
 
      Category findByName(String name);
