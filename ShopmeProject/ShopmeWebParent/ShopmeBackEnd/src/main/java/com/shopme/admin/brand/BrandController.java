@@ -45,8 +45,8 @@ public class BrandController {
        Page<Brand> page = brandService.listByPage(pageNum, sortField, sortDir, keyword);
        List<Brand> listBrands = page.getContent();
 
-        long startCount = (pageNum - 1) * BrandService.BRANDS_PER_PAGE + 1;
-        long endCount = startCount + BrandService.BRANDS_PER_PAGE - 1;
+        long startCount = (pageNum - 1) * brandService.BRANDS_PER_PAGE + 1;
+        long endCount = startCount + brandService.BRANDS_PER_PAGE - 1;
         if (endCount > page.getTotalElements()) {
             endCount = page.getTotalElements();
         }
