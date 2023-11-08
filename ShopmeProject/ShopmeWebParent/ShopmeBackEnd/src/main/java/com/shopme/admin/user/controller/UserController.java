@@ -2,6 +2,7 @@ package com.shopme.admin.user.controller;
 
 import com.shopme.admin.FileUploadUtil;
 import com.shopme.admin.user.UserNotFoundException;
+import com.shopme.admin.user.UserRepository;
 import com.shopme.admin.user.UserService;
 import com.shopme.admin.user.export.UserCsvExporter;
 import com.shopme.admin.user.export.UserExcelExporter;
@@ -9,6 +10,7 @@ import com.shopme.admin.user.export.UserPdfExporter;
 import com.shopme.common.entity.Role;
 import com.shopme.common.entity.User;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
@@ -28,10 +30,13 @@ import java.util.List;
 @Controller
 public class UserController {
 
-    private final UserService service;
+    private UserService service;
+    private UserRepository repo;
 
-    public UserController(UserService service) {
+    @Autowired
+    public UserController(UserService service, UserRepository repo) {
         this.service = service;
+        this.repo = repo;
     }
 
     @GetMapping("/users")

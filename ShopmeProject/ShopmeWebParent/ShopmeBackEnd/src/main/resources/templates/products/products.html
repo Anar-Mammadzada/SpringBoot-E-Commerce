@@ -47,23 +47,21 @@
         <table class="table table-bordered table-striped table-hover table-responsive-xl">
             <thead class="thead-dark">
             <tr>
-                <th class="hideable-column">
-                <th th:replace="fragments:: column-link('/products', 'id', 'ID', 'none')"></th>
-                </th>
+                <th class="hideable-column" th:replace="fragments:: column-link('/products', 'id', 'ID', 'none')"></th>
                 <th>Main Image</th>
+
                 <th th:replace="fragments:: column-link('/products', 'name', 'Product Name', 'none')"></th>
-                <th class="hideable-column">
-                <th th:replace="fragments:: column-link('/products', 'brand', 'Brand', 'none')"></th>
-                </th>
-                <th class="hideable-column">
-                <th th:replace="fragments:: column-link('/products', 'category', 'Category', 'none')"></th>
-                </th>
+
+                <th class="hideable-column" th:replace="fragments:: column-link('/products', 'brand', 'Brand', 'none')"></th>
+
+                <th class="hideable-column" th:replace="fragments:: column-link('/products', 'category', 'Category', 'none')"></th>
                 <th:block sec:authorize="hasAnyAuthority('Admin','Editor')">
                 <th>Enabled</th>
                 </th:block>
                 <th></th>
             </tr>
             </thead>
+
             <tbody>
             <tr th:each="product : ${listProducts}">
                 <td class="hideable-column">[[${product.id}]]</td>
@@ -85,8 +83,7 @@
                 <td>
                     <a class="fas fa-file-alt fa-2x icon-green link-detail"
                        th:href="@{'/products/detail/' + ${product.id}}"
-                       title="View details of this product"
-                    ></a>
+                       title="View details of this product"></a>
                     <th:block sec:authorize="hasAnyAuthority('Admin','Editor','Salesperson')">
                     &nbsp;
                     <div th:replace="fragments :: edit('product', '/products/edit/' + ${product.id})" ></div>

@@ -8,7 +8,10 @@
     <artifactId>ShopmeProject</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <modules></modules>
+    <modules>
+        <module>ShopmeCommon</module>
+        <module>ShopmeWebParent</module>
+    </modules>
 
     <properties>
         <maven.compiler.source>15</maven.compiler.source>

@@ -7,6 +7,7 @@ import com.shopme.admin.security.ShopmeUserDetails;
 import com.shopme.common.entity.Brand;
 import com.shopme.common.entity.Category;
 import com.shopme.common.entity.Product;
+import com.shopme.common.exception.ProductNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

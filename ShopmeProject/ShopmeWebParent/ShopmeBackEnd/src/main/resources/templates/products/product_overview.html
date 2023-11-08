@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html  xmlns:th="http://www.thymeleaf.org"
-       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" lang="en">
 <body>
 <div th:fragment="content" th:remove="tag">
     <div class="form-group row">
@@ -8,7 +8,7 @@
         <div class="col-sm-10">
             <input type="text" class="form-control" th:field="*{name}"
                    th:readonly="${#authorization.expression('hasAuthority(''Salesperson'')')}"
-                   required minlength="3" maxlength="256"  />
+                   required minlength="3" maxlength="256"/>
         </div>
     </div>
 
@@ -18,7 +18,7 @@
             <input type="text" class="form-control" th:field="*{alias}"
                    placeholder="Default is product name (spaces are replaced by dashes)"
                    th:readonly="${#authorization.expression('hasAuthority(''Salesperson'')')}"
-                   minlength="3" maxlength="256"  />
+                   minlength="3" maxlength="256"/>
         </div>
     </div>
 
