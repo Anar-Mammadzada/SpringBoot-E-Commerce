@@ -129,6 +129,7 @@ public class UserServiceTests {
         mockUser.setLastName("Mammadzada");
 
         Mockito.when(repo.save(any(User.class))).thenReturn(mockUser);
+        Mockito.when(repo.findById(1)).thenReturn(Optional.of(mockUser));
 
         Mockito.when(passwordEncoder.encode("ugur2017")).thenReturn("ugur2017");
 
