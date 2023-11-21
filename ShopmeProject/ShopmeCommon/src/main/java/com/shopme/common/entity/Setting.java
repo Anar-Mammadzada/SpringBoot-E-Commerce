@@ -1,6 +1,7 @@
 package com.shopme.common.entity;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "settings")
@@ -18,6 +19,10 @@ public class Setting {
     private SettingCategory category;
 
     public Setting() {
+    }
+
+    public Setting(String key) {
+        this.key = key;
     }
 
     public Setting(String key, String value, SettingCategory category) {
@@ -48,5 +53,27 @@ public class Setting {
 
     public void setCategory(SettingCategory category) {
         this.category = category;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Setting setting = (Setting) o;
+        return Objects.equals(key, setting.key);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(key);
+    }
+
+    @Override
+    public String toString() {
+        return "Setting{" +
+                "key='" + key + '\'' +
+                ", value='" + value + '\'' +
+                ", category=" + category +
+                '}';
     }
 }
