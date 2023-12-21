@@ -36,7 +36,6 @@ public class CategoryRepositoryTests {
         Category savedCategory = repo.save(subCategory);
 
         Assertions.assertThat(savedCategory.getId()).isGreaterThan(0);
-
     }
 
     @Test
