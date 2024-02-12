@@ -22,4 +22,11 @@ public class SettingService {
        return settingRepository.findByTwoCategories(SettingCategory.GENERAL, SettingCategory.CURRENCY);
     }
 
+    public EmailSettingBag getEmailSettings(){
+        List<Setting> settings = settingRepository.findByCategory(SettingCategory.MAIL_SERVER);
+        settings.addAll(settingRepository.findByCategory(SettingCategory.MAIL_TEMPLATES));
+
+        return  new EmailSettingBag(settings);
+    }
+
 }

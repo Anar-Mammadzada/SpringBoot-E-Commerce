@@ -176,6 +176,10 @@ public class Customer {
         this.country = country;
     }
 
+    public String getFullName(){
+        return firstName + " " + lastName;
+    }
+
     @Override
     public String toString() {
         return "Customer{" +
